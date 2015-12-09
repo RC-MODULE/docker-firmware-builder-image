@@ -4,7 +4,7 @@ FROM debian:jessie
 # FixMe: Install debian.ncrmnt.org and apt.dockerproject.org GPG key here!
 #
 
-RUN apt-get update && apt-get -y install apt-transport-https
+RUN apt-get update && apt-get upgrade && apt-get -y install apt-transport-https
 RUN echo "deb https://debian.ncrmnt.org/debian jessie main"          >> /etc/apt/sources.list
 RUN echo "deb https://apt.dockerproject.org/repo debian-jessie main" >> /etc/apt/sources.list
 
@@ -17,5 +17,4 @@ RUN chmod 777 /etc/passwd
 RUN chmod 777 /etc/group
 RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers    
 
-VOLUME /var/run/docker.sock:/var/run/docker.sock
 ENTRYPOINT ["/bin/bash", "--login"]
