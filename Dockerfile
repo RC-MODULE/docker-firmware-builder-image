@@ -12,7 +12,7 @@ RUN echo "deb http://mirror.yandex.ru/debian/ stable-backports main contrib non-
 RUN echo "deb http://security.debian.org/ stable/updates non-free" >> /etc/apt/sources.list
 
 RUN apt-get update 
-RUN apt-get upgrade 
+RUN apt-get -y upgrade 
 RUN apt-get -y install apt-transport-https apt-utils
 
 RUN echo "deb https://debian.ncrmnt.org/debian jessie main"          >> /etc/apt/sources.list
@@ -27,5 +27,8 @@ ENV HOME  /var/lib/jenkins
 RUN chmod 777 /etc/passwd
 RUN chmod 777 /etc/group
 RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers    
+
+#This shit screws up multistrap logic. 
+RUN "rm -f /etc/apt/apt.conf.d/docker-gzip-indexes"
 
 ENTRYPOINT ["/bin/bash", "--login"]
