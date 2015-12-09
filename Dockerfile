@@ -17,4 +17,5 @@ RUN chmod 777 /etc/passwd
 RUN chmod 777 /etc/group
 RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers    
 
+VOLUME /var/run/docker.sock:/var/run/docker.sock
 ENTRYPOINT ["/bin/bash", "--login"]
