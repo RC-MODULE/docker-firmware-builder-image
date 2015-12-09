@@ -8,7 +8,7 @@ RUN apt-get update && apt-get -y install apt-transport-https
 RUN echo "deb https://debian.ncrmnt.org/debian jessie main"          >> /etc/apt/sources.list
 RUN echo "deb https://apt.dockerproject.org/repo debian-jessie main" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get -y --force-yes install multistrap sudo kconfig-frontends docker-engine git qemu-user-static
+RUN apt-get update && apt-get -y --force-yes install multistrap sudo kconfig-frontends docker-engine git qemu-user-static build-essential devscripts
 
 ENV PATH  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/module-nmc/bin-lnx/
 ENV HOME  /var/lib/jenkins
