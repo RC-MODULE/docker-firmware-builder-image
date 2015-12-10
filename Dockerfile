@@ -28,7 +28,11 @@ RUN chmod 777 /etc/passwd
 RUN chmod 777 /etc/group
 RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers    
 
-#This shit screws up multistrap logic. 
-RUN "rm -f /etc/apt/apt.conf.d/docker-gzip-indexes"
+# Remember to do 
+# rm -f /etc/apt/apt.conf.d/docker-gzip-indexes
+# If you are going to run multistrap
+
+RUN ls /etc/apt/apt.conf.d/
+
 
 ENTRYPOINT ["/bin/bash", "--login"]
