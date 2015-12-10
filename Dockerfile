@@ -32,7 +32,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # rm -f /etc/apt/apt.conf.d/docker-gzip-indexes
 # If you are going to run multistrap
 
-RUN ls /etc/apt/apt.conf.d/
+RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 
 
 ENTRYPOINT ["/bin/bash", "--login"]
