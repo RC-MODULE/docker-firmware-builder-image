@@ -31,8 +31,10 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Remember to do 
 # rm -f /etc/apt/apt.conf.d/docker-gzip-indexes
 # If you are going to run multistrap
-
 RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 
+# jessie's version of qemu-user-static has a nasty race condition
+RUN wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_2.5+dfsg-1_amd64.deb
+RUN dpkg -i qemu-user-static_2.5+dfsg-1_amd64.deb
 
 ENTRYPOINT ["/bin/bash", "--login"]
