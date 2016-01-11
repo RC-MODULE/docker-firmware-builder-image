@@ -15,7 +15,7 @@ RUN apt-get update
 RUN apt-get -y upgrade 
 RUN apt-get -y install apt-transport-https apt-utils
 
-RUN echo "deb https://repo.ncrmnt.org/debian jessie main"          >> /etc/apt/sources.list
+RUN echo "deb http://repo.ncrmnt.org/debian jessie main"          >> /etc/apt/sources.list
 RUN echo "deb https://apt.dockerproject.org/repo debian-jessie main" >> /etc/apt/sources.list
 
 RUN apt-get update 
