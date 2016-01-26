@@ -11,6 +11,12 @@ RUN echo "deb http://mirror.yandex.ru/debian/ stable-updates main"         >> /e
 RUN echo "deb http://mirror.yandex.ru/debian/ stable-backports main contrib non-free" >> /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ stable/updates non-free" >> /etc/apt/sources.list
 
+#Comment out this if you don't need APT proxy
+RUN echo "Acquire::http::Proxy  \"http://shadowblade:3128/";\" > /etc/apt/apt.conf.d/proxy
+RUN echo "Acquire::https::Proxy \"http://shadowblade:3128/";\" >> /etc/apt/apt.conf.d/proxy
+
+RUN echo "deb http://security.debian.org/ stable/updates non-free" >> /etc/apt/sources.list
+
 RUN apt-get update 
 RUN apt-get -y upgrade 
 RUN apt-get -y install apt-transport-https apt-utils
