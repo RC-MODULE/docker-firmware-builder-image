@@ -12,7 +12,7 @@ RUN echo "deb http://mirror.yandex.ru/debian/ stable-backports main contrib non-
 RUN echo "deb http://security.debian.org/ stable/updates non-free" >> /etc/apt/sources.list
 
 #Comment out this if you don't need APT proxy
-RUN echo "Acquire::http::Proxy  \"http://shadowblade:3128/\";" > /etc/apt/apt.conf.d/proxy
+RUN echo "Acquire::http::Proxy  \"http://shadowblade:3128/\";" >  /etc/apt/apt.conf.d/proxy
 RUN echo "Acquire::https::Proxy \"http://shadowblade:3128/\";" >> /etc/apt/apt.conf.d/proxy
 
 RUN echo "deb http://security.debian.org/ stable/updates non-free" >> /etc/apt/sources.list
@@ -40,7 +40,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 
 # jessie's version of qemu-user-static has a nasty race condition
-RUN wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_2.5+dfsg-1_amd64.deb
-RUN dpkg -i qemu-user-static_2.5+dfsg-1_amd64.deb
+RUN wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_2.5+dfsg-4+b1_amd64.deb
+RUN dpkg -i qemu-user-static_2.5+dfsg-4+b1_amd64.deb
 
 ENTRYPOINT ["/bin/bash", "--login"]
