@@ -12,7 +12,6 @@ RUN echo "deb http://mirror.yandex.ru/debian/ stable-backports main contrib non-
 RUN echo "deb http://security.debian.org/ stable/updates non-free" >> /etc/apt/sources.list
 
 
-
 #Comment out this if you don't need APT proxy
 RUN echo "Acquire::http::Proxy  \"http://shadowblade:3128/\";" >  /etc/apt/apt.conf.d/proxy
 RUN echo "Acquire::https::Proxy \"http://shadowblade:3128/\";" >> /etc/apt/apt.conf.d/proxy
@@ -40,12 +39,13 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # If you are going to run multistrap
 RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 
+# Linaro abe build deps
+RUN apt-get install -y --force-yes bison automake autoconf libtool libncurses-dev gawk gcc-multilib g++-multilib zlib1g-dev
+ADD git-new-workdir /usr/local/bin
+
 # jessie's version of qemu-user-static has a nasty race condition
 RUN echo "deb http://mirror.yandex.ru/debian/ unstable main contrib non-free" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y --force-yes  qemu-user-static -t unstable
-
-#RUN wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_2.5+dfsg-4+b1_amd64.deb
-#RUN dpkg -i qemu-user-static_2.5+dfsg-4+b1_amd64.deb
 
 ENTRYPOINT ["/bin/bash", "--login"]
