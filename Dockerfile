@@ -30,13 +30,7 @@ RUN apt-get -y --force-yes install multistrap sudo docker-engine git build-essen
 ENV PATH  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV HOME  /var/lib/jenkins
 
-RUN chmod 777 /etc/passwd
-RUN chmod 777 /etc/group
-RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-# Remember to do
-# rm -f /etc/apt/apt.conf.d/docker-gzip-indexes
-# If you are going to run multistrap
+# Remember to remove /etc/apt/apt.conf.d/docker-gzip-indexes or multistrap will break
 RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 
 # Linaro abe build deps
@@ -47,5 +41,16 @@ ADD git-new-workdir /usr/local/bin
 RUN echo "deb http://mirror.yandex.ru/debian/ unstable main contrib non-free" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y --force-yes  qemu-user-static -t unstable
+
+# Create passwd and group if needed, make them world-writable
+# Jenkins will need to fill in uid/gid there.
+# Failing to do so breaks some apps, like gcc's buildsystem
+
+RUN touch /etc/group
+RUN touch /etc/passwd
+RUN chmod 777 /etc/passwd
+RUN chmod 777 /etc/group
+
+RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 ENTRYPOINT ["/bin/bash", "--login"]
