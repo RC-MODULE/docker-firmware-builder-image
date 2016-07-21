@@ -34,7 +34,7 @@ ENV HOME  /var/lib/jenkins
 RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 
 # Linaro abe build deps
-RUN apt-get install -y --force-yes bison automake autoconf libtool libncurses-dev gawk gcc-multilib g++-multilib zlib1g-dev flex autogen texinfo libpython2.7-dev dejagnu
+RUN apt-get install -y --force-yes bison automake autoconf libtool libncurses-dev gawk gcc-multilib g++-multilib zlib1g-dev flex autogen texinfo libpython2.7-dev dejagnu gcc-mingw-w64-i686
 ADD git-new-workdir /usr/local/bin
 
 # jessie's version of qemu-user-static has a nasty race condition
